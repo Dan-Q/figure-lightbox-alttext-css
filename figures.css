@@ -1,0 +1,110 @@
+/**
+ * This file contains the actual code related to the lightboxes and alt text overlays.
+ */
+
+body:has(.lightbox[open]) {
+  overflow: hidden;
+}
+
+figure {
+  width: fit-content;
+}
+
+.img-with-alt-text {
+  position: relative;
+}
+
+.lightbox {
+  display: inline-block;
+  width: fit-content;
+  margin: 0 auto;
+
+  summary {
+    list-style: none;
+    cursor: zoom-in;
+  }
+
+  &[open] {
+    summary {
+      cursor: zoom-out;
+
+      &::after {
+        content: "";
+        position: fixed;
+        z-index: 1;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+        inset: 0;
+      }
+    }
+
+    .lightbox-full-image {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5ch;
+
+      img {
+        object-fit: contain;
+        z-index: 3;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.alt-text {
+  font-size: 90%;
+
+  summary, p {
+    background: rgba(0, 0, 0, 0.65);
+    color: var(--color-secondary);
+    border-radius: 4px;
+    padding: 1px 3px;
+    margin: 0;
+  }
+
+  summary {
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    list-style: none;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  p {
+    right: 5px;
+  }
+
+  &[open] {
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    right: 5px;
+
+    summary {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: transparent;
+
+      span {
+        display: none;
+      }
+
+      p {
+        right: 5px;
+        margin: 0;
+        padding: 0 2px;
+      }
+    }
+  }
+}

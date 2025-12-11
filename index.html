@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightbox Figures with Alt Text Overlays in Pure CSS</title>
+    <link rel="stylesheet" href="style.css"><!-- generic design stuff -->
+    <link rel="stylesheet" href="figures.css"><!-- actual code related to the lightboxes and alt text overlays -->
+  </head>
+
+  <body>
+    <header>
+      <h1>Lightbox Figures with Alt Text Overlays in Pure CSS</h1>
+    </header>
+    <main>
+      <h2>What is this?</h2>
+      <p>
+        This page demonstrates a technique for adding (a) a lightbox and (b) alt-text visibility to <code>&lt;figure&gt;</code>s, using pure CSS. It aims to
+        be lightweight, responsive, and accessible. The relevant code can be viewed in <a href="figures.css">figures.css</a>, or just use your browser's
+        developer tools to inspect the page (taking care to pay attention to the interactive <code>details[open]</code> selector and the the conditional
+        <code>::after</code> pseudo-elements).
+      </p>
+      <p>
+        To see it in action, click on the image of the owls to see a larger version in a lightbox popup, or click on the "Alt" text to display the alt text.
+      </p>
+
+      <figure>
+        <div class="img-with-alt-text">
+          <details class="lightbox">
+            <summary>
+              <img src="owls-thumbnail.jpg" width="640" height="400" alt="A pair of barred owls rest in the shade of a leafy deciduous tree in the afternoon light.">
+            </summary>
+            <span class="lightbox-full-image">
+              <img src="owls-full.jpg" width="6016" height="4016" loading="lazy" alt="Large image of a pair of barred owls rest in the shade of a leafy deciduous tree in the afternoon light.">
+            </span>
+          </details>
+          <details class="alt-text">
+            <summary><span>Alt</span></summary>
+            <p>A pair of barred owls rest in the shade of a leafy deciduous tree in the afternoon light.</p>
+          </details>
+        </div>
+        <figcaption>
+          Photo courtesy Tom Nebel, used under the Pexels license.
+        </figcaption>
+      </figure>
+
+      <h2>How it works</h2>
+      <p>
+        The key to this technique is the <code>&lt;details&gt;</code> element. It's a native HTML element that allows you to create an interactive widget that
+        can be opened and closed, intended for displaying <code>&lt;summary&gt;</code> content and hiding the full details unless requested. This is a
+        semantically-valid use of the element, because we <em>really are</em> displaying "more" information about the image (or its alt text) at the user's
+        request.
+      </p>
+      <p>
+        The thumbnail image is wrapped in a <code>&lt;summary&gt;</code> element; clicking it displays a span containing the full image. CSS is used to style
+        this as a full-screen "popup", with <code>body:has(.lightbox[open]) { overflow: hidden; }</code> used to prevent scrolling of the page and a
+        <code>.lightbox[open] summary::after</code> which provides a faded-out background (which, because it's part of the summary, can still be clicked to
+        close the lightbox).
+      </p>
+      <p>
+        The alt text works in a similar way, but the <code>.img-with-alt-text</code> wrapper's <code>position: relative;</code> and the
+        <code>&lt;details class="alt-text"&gt;</code>'s work together to position the alt text and its button as an "overlay" to the image. The inner
+        <code>&lt;summary&gt;</code> is repositioned "over" the paragraph, when it's open, to facilitate clicking anywhere on the text to close it. This
+        unfortunately makes it hard to <em>select</em> the alt text e.g. to copy it to the clipboard, but otherwise it works well.
+      </p>
+      <p>
+        Because it's implemented in CSS, it's highly-performant and works even where JavaScript is disabled or otherwise fails. And because it's implemented
+        using semantic HTML, it <em>also</em> works acceptably well even if your CSS is disabled, so you can celebrate
+        <a href="https://css-naked-day.org/">Naked CSS Day</a> if you like!
+      </p>
+
+      <h2>Using it in practice</h2>
+      <p>
+        There's a surprising amount of duplication in the HTML code - the alt text appears a total of <em>three times</em>, for example - and so the technique
+        is probably most-suitable for dynamically-generated content (e.g. from a CMS or SSG): writing this all out by hand every time would be a pain! And
+        using JavaScript to enhance images would somewhat undermine the benefits of this pure-CSS solution (although the CSS would still give better performance
+        than JavaScript event listeners).
+      </p>
+
+      <h2>Credit, license, &amp; inspiration</h2>
+      <p>
+        This code was written by me, <a href="https://danq.me/">Dan Q</a>, as part of a redesign of my personal website planned for 2026. It is released into
+        the public domain under the <a href="LICENSE">UNLICENSE</a>: you can do whatever you want with it without limitation or restriction. If you want to
+        tell me how you're using it, though, I'd love to hear about it!
+      </p>
+      <p>
+        I <a href="https://danq.me/2025/08/15/details-summary-lightboxes-in-pure-html-css/">previously described the lightbox technique</a> on my blog
+        after using it to replace <a href="https://danq.me/2023/12/12/no-js-lightbox/">a different CSS-only solution</a> that used anchor links and the
+        <code>&lt;dialog&gt;</code> element.
+      </p>
+      <p>
+        The alt-text "button" was inspired by <a href="https://jamesg.blog/2025/08/17/alt-text-button">James' checkbox-based approach to doing the same
+        thing</a>, which in turn was inspired by Mastodon's UI (which uses JavaScript).
+      </p>
+    </main>
+    <footer>
+      <ul>
+        <li>
+          <a href="https://danq.me/"><img src="https://danq.me/_q26t/badges/dan-q-88x31-lighter.gif" alt="Dan Q" width="88" height="31"></a>
+        </li>
+      </ul>
+    </footer>
+  </body>
+
+  <script type="speculationrules">
+    {
+      "prefetch": [
+        {
+          "urls": ["owls-full.jpg", "https://danq.me/"]
+        }
+      ]
+    }
+  </script>
+</html>

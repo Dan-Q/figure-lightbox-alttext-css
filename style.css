@@ -1,0 +1,101 @@
+/**
+ * This file contains generic design stuff to make the page look pretty.
+ * It doesn't contain anything related to the lightboxes and alt text overlays. You want figures.css!
+ */
+
+:root {
+  --color-primary: #2C363F;
+  --color-secondary: #F2F5EA;
+  --color-tertiary: #BBC7A4;
+  --color-tertiary-contrast: #000;
+  --color-highlight: #E75A7C;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+figure {
+  margin: 0;
+}
+
+figcaption {
+  text-align: center;
+  font-size: 90%;
+  color: var(--color-highlight);
+  contain: inline-size;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h2, p {
+  width: 100%;
+}
+
+p {
+  line-height: 1.5;
+  margin: 0.75rem 0;
+}
+
+a {
+  color: var(--color-highlight);
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 90%;
+  background: var(--color-tertiary);
+  color: var(--color-tertiary-contrast);
+  padding: 1px 3px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+body {
+  font-family: Optima, Candara, 'Noto Sans', source-sans-pro, sans-serif;
+  font-weight: normal;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  background: var(--color-secondary);
+  color: var(--color-primary);
+  font-size: 18px;
+}
+
+header, main, footer {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > * {
+    max-width: 800px;
+  }
+}
+
+header {
+  background: var(--color-highlight);
+  color: var(--color-secondary);
+}
+
+footer {
+  background: var(--color-tertiary);
+
+  ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  ul {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
