@@ -53,7 +53,7 @@
       </p>
       <p>
         The thumbnail image is wrapped in a <code>&lt;summary&gt;</code> element; clicking it displays a span containing the full image. CSS is used to style
-        this as a full-screen "popup", with <code>body:has(.lightbox[open]) { overflow: hidden; }</code> used to prevent scrolling of the page and a
+        this as a full-screen "popup", with <code>body:has(.lightbox[open])</code> giving <code>overflow: hidden;</code> to prevent scrolling of the page and a
         <code>.lightbox[open] summary::after</code> which provides a faded-out background (which, because it's part of the summary, can still be clicked to
         close the lightbox).
       </p>
